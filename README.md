@@ -4,7 +4,8 @@ OpenGL Examples
 
 #### Linux
 
-    git clone --recursive https://github.com/matthewjberger/OpenGL.git
+    git clone --recursive https://github.com/matthewjberger/opengl.git
+    cd opengl
     premake5 gmake
     cd build
     make
