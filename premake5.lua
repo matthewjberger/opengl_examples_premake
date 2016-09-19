@@ -15,7 +15,7 @@ function create_example(name)
         kind "WindowedApp"
         language "C++"
         links{ "SDL2", "SDL2main", "SDL2_image", "SDL2_ttf", "SDL2_mixer" }
-        includedirs { "core", "core/**", "glad/include/" }
+        includedirs({ "core", "core/**", "glad/include/", name })
         files({ "core/**.cpp", name .. "/**.h", name .. "/**.cpp", "glad/src/glad.c" })
 
         filter "configurations:Debug"
