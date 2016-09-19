@@ -39,3 +39,5 @@ glm
 └───glm
 └─── (other folders that come with glm)
 ```
+
+Visual Studio 2015 is recommended if building on windows.
