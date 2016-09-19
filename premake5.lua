@@ -7,6 +7,14 @@ function generate()
     create_example "triangle"
 end
 
+-- Helper functions
+function use_windows_slashes(unixPath)
+	return (string.gsub(unixPath, "/", "\\") or "")
+end
+
+function quote(str)
+	return '"' .. str .. '"'
+end
 -- Demo project creation function
 function create_example(name)
     project(name)
@@ -39,14 +47,15 @@ function create_example(name)
             local sdl2_path = os.getenv("SDL2_PATH")
             local sdl2_include = (sdl2_path or "") .. "/include"
             local sdl2_lib = (sdl2_path or "") .. "/lib/x86"
-            local glm_path = os.getenv("GLM_PATH")
-            debugdir(target)
+            local glm_path = os.getenv("GLM_PATH")			
+            debugdir(use_windows_slashes(target))
             includedirs { sdl2_include, glm_path }
             libdirs { sdl2_lib }
-            -- Post build events in Visual Studio to copy shaders to the output directory
-            postbuildcommands({
-            "xcopy /E /Y /I \"$(SolutionDir)../" .. dirName .. "/shaders\" \"$(TargetDir)\"",
-            "xcopy /E /Y /I \"" .. (string.gsub(sdl2_lib, "/", "\\") or "") .. "\\*.dll" .. "\" \"$(TargetDir)\"" })
+            -- Post build command in Visual Studio to copy shaders to the output directory
+			local shader_folder_pbc = "xcopy /S /Y /I /F " .. quote("$(SolutionDir)..\\" .. use_windows_slashes(dirName .. "/shaders/*")) .. " " .. quote("$(TargetDir)shaders")
+			-- Post build command in Visual Studio to copy library dll's to the output directory
+			local library_dlls_pbc = "xcopy /Y /F " .. quote(use_windows_slashes(sdl2_lib .. "/*.dll")) .. " " .. quote("$(TargetDir)")
+            postbuildcommands({ shader_folder_pbc, library_dlls_pbc })
 end
 
 -- Generate build files
