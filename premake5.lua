@@ -12,11 +12,12 @@ function create_example(name)
     project(name)
         local target = "bin/" .. name .. "/%{cfg.buildcfg}"
         targetdir(target)
+        local dirName = "examples/" .. name
         kind "WindowedApp"
         language "C++"
         links{ "SDL2", "SDL2main", "SDL2_image", "SDL2_ttf", "SDL2_mixer" }
-        includedirs({ "core", "core/**", "glad/include/", name })
-        files({ "core/**.cpp", name .. "/**.h", name .. "/**.cpp", "glad/src/glad.c" })
+        includedirs({ "core", "core/**", "glad/include/", dirName })
+        files({ "core/**.cpp", dirName .. "/**.h", dirName .. "/**.cpp", "glad/src/glad.c" })
 
         filter "configurations:Debug"
             defines "DEBUG"
@@ -31,7 +32,7 @@ function create_example(name)
             buildoptions { "`sdl2-config --cflags`", "-std=c++11" }
             linkoptions "`sdl2-config --libs`"
             -- Copy shaders to the output directory
-            postbuildcommands("cp -r ../" .. name .."/shaders ../bin/" .. name .. "/%{cfg.buildcfg}")
+            postbuildcommands("cp -r ../" .. dirName .."/shaders ../bin/" .. name .. "/%{cfg.buildcfg}")
 
         configuration { "windows" }
             links "OpenGL32.lib" -- link OpenGL on windows
@@ -44,7 +45,7 @@ function create_example(name)
             libdirs { sdl2_lib }
             -- Post build events in Visual Studio to copy shaders to the output directory
             postbuildcommands({
-            "xcopy /E /Y /I \"$(SolutionDir)../" .. name .. "/shaders\" \"$(TargetDir)\"",
+            "xcopy /E /Y /I \"$(SolutionDir)../" .. dirName .. "/shaders\" \"$(TargetDir)\"",
             "xcopy /E /Y /I \"" .. (string.gsub(sdl2_lib, "/", "\\") or "") .. "\\*.dll" .. "\" \"$(TargetDir)\"" })
 end
 
