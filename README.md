@@ -4,10 +4,11 @@ OpenGL Examples
 
 #### Linux
 
+    git clone --recursive https://github.com/matthewjberger/OpenGL.git
     premake5 gmake
     cd build
     make
-    # Navigate to desired demo's output directory
+    # Navigate to desired demo's output directory and run the corresponding executable
 
 To build specific examples only, add or remove lines in the premake5.lua file that say:
 ```lua
