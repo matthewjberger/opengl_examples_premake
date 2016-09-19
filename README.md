@@ -15,4 +15,4 @@ To build specific examples only, add or remove lines in the premake5.lua file th
 ```lua
 create_example("projectName")
 ```
-in the _generate()_ function at the top of the file.
+in the _generate()_ function at the top of the file and then run premake again.
