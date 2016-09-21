@@ -13,6 +13,7 @@ public:
     void draw();
     void update();
     void handle_events(SDL_Event event);
+    void finalize();
 
 private:
     std::shared_ptr<VAO> triVAO;

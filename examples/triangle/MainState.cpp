@@ -1,8 +1,5 @@
 #include <MainState.h>
 
-void MainState::update(){}
-void MainState::handle_events(SDL_Event event){}
-
 void MainState::initialize()
 {
     // Specify vertices
@@ -43,6 +40,9 @@ void MainState::initialize()
     triProgram->link_program();
 }
 
+void MainState::handle_events(SDL_Event event){}
+void MainState::update(){}
+
 void MainState::draw()
 {
     // Clear the screen
@@ -53,3 +53,6 @@ void MainState::draw()
     glDrawArrays(GL_TRIANGLES, 0, 3);
     triVAO->unbind();
 }
+
+void MainState::finalize(){}
+

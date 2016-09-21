@@ -29,7 +29,7 @@ int main(int argc, char* args[])
         {
             while (SDL_PollEvent(&event) != 0)
             {
-                if (event.type == SDL_QUIT)
+                if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE)
                 {
                     quit = true;
                 }
@@ -41,6 +41,7 @@ int main(int argc, char* args[])
         }
         SDL_StopTextInput();
     }
+    state.finalize();
     Finalize();
     return 0;
 }
