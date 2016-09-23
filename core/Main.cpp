@@ -40,8 +40,9 @@ int main(int argc, char* args[])
             SDL_GL_SwapWindow(gWindow);
         }
         SDL_StopTextInput();
+
+        state.finalize();
     }
-    state.finalize();
     Finalize();
     return 0;
 }
