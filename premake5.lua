@@ -26,7 +26,7 @@ function create_example(name)
         language "C++"
         links{ "SDL2", "SDL2main", "SDL2_image", "SDL2_ttf", "SDL2_mixer" }
         includedirs({ "core", "core/**", "glad/include/", dirName })
-        files({ "core/**.h", "core/**.cpp", dirName .. "/**.h", dirName .. "/**.cpp", "glad/src/glad.c" })
+        files({ dirName .. "/**.glsl", "core/**.h", "core/**.cpp", dirName .. "/**.h", dirName .. "/**.cpp", "glad/src/glad.c" })
 
         filter "configurations:Debug"
             defines "DEBUG"
