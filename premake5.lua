@@ -3,7 +3,8 @@ function generate()
     workspace "OpenGL"
         configurations { "Debug", "Release" }
         location "build"
-
+		
+	create_example "playground"
     create_example "shaders"
     create_example "triangle"
 end
