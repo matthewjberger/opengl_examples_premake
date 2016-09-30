@@ -1,6 +1,7 @@
 #include <MainState.h>
 
 /* Created by following the example from the excellent OpenGL Superbible 7 book */
+// The GLSL macro is specified in GlobalIncludes.h
 
 GLuint MainState::compile_shaders()
 {
@@ -9,39 +10,35 @@ GLuint MainState::compile_shaders()
     GLuint program;
 
     // Source code for vertex shader
-    static const char * vertex_shader_source[] =
-    {
-        "#version 330 core                                    \n"
-        "layout(location = 0) in vec4 offset;                 \n"
-        "void main(void)                                      \n"
-        "{                                                    \n"
-        "    const vec4 vertices[3] =                         \n"
-        "       vec4[3](vec4(0.25, -0.25, 0.5, 1.0),          \n"
-        "       vec4(-0.25, -0.25, 0.5, 1.0),                 \n"
-        "       vec4(0.25, 0.25, 0.5, 1.0));                  \n"
-        "    gl_Position = vertices[gl_VertexID] + offset;    \n"
-        "}                                                    \n"
-    };
+    static const char * vertex_shader_source = GLSL(
+        layout(location = 0) in vec4 offset;     
+        void main(void)                           
+        {                                          
+            const vec4 vertices[3] =                
+               vec4[3](vec4(0.25, -0.25, 0.5, 1.0),   
+               vec4(-0.25, -0.25, 0.5, 1.0),         
+               vec4(0.25, 0.25, 0.5, 1.0));            
+            gl_Position = vertices[gl_VertexID] + offset;
+        }                                               
+    );
 
     // Source code for fragment shader
-    static const GLchar * fragment_shader_source[] =
-    {
-        "#version 330 core                    \n"
-        "out vec4 color;                      \n"
-        "void main(void)                      \n"
-        "{                                    \n"
-        "   color = vec4(0.0, 0.8, 1.0, 1.0); \n"
-        "}                                    \n"
-    };
+    static const GLchar * fragment_shader_source = GLSL(
+        out vec4 color;                 
+        void main(void)                  
+        {                                 
+           color = vec4(0.0, 0.8, 1.0, 1.0);
+        }                                  
+    );
 
     // Create and compile vertex shader
     vertex_shader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertex_shader, 1, vertex_shader_source, NULL);
+    glShaderSource(vertex_shader, 1, &vertex_shader_source, NULL);
     glCompileShader(vertex_shader);
 
     // Create and compile fragment shader
     fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragment_shader, 1, fragment_shader_source, NULL);
+    glShaderSource(fragment_shader, 1, &fragment_shader_source, NULL);
     glCompileShader(fragment_shader);
 
     // Create program, attach shaders, and link the shaders
@@ -92,6 +89,8 @@ void MainState::draw()
 
     // Use the shader program we created earlier
     glUseProgram(rendering_program);
+
+    glPointSize(5.0f);
 
     // Create an array of four floats that move a point in a circle in x,y over time
     GLfloat attrib[] = { 

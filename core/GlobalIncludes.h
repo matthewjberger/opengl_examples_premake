@@ -25,4 +25,7 @@
 #include <memory>
 #include <map>
 
+// GLSL Macro Definition
+#define GLSL(src) "#version 330 core\n" #src
+
 #endif
