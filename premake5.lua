@@ -4,7 +4,7 @@ function generate()
         configurations { "Debug", "Release" }
         location "build"
 
-	create_example "shaders"
+    create_example "shaders"
     create_example "triangle"
 end
 
