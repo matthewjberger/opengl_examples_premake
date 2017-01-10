@@ -31,7 +31,8 @@ SDL2
     └─── x64
     └─── x86
 ```
-Place all of the include files from SDL2_image, SDL2_ttf, and SDL2_mixer in the main SDL2 include directory above, and all of their library files in the main lib/x86 and lib/64 folders above.
+Place all of the include files from SDL2_image, SDL2_ttf, and SDL2_mixer in the main SDL2 include directory above, and all of their library files in the lib/x86 and lib/64 folders above.
+
 Then, download GLM and set an environment variable called *GLM_PATH* to point to the root folder. It should look like this:
 
 ```
