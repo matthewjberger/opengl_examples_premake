@@ -3,7 +3,7 @@ function generate()
     workspace "OpenGL"
         configurations { "Debug", "Release" }
         location "build"
-		
+
     create_example "playground"
     create_example "shaders"
     create_example "triangle"
@@ -37,19 +37,23 @@ function create_example(name)
             defines "NDEBUG"
             optimize "On"
 
-        configuration { "linux", "gmake" }
+        configuration { "gmake" }
             links{ "GL", "dl" } -- libdl is required by glad on non-windows platforms
-            buildoptions { "`sdl2-config --cflags`", "-std=c++11" }
+            buildoptions { "`sdl2-config --cflags`", "-std=c++14" }
             linkoptions "`sdl2-config --libs`"
             -- Copy shaders to the output directory
-            postbuildcommands("cp -r ../" .. dirName .."/shaders ../bin/" .. name .. "/%{cfg.buildcfg}")
+            local shaders_path = "../" .. dirName .. "/shaders"
+            local output_path = "../bin/" .. name .. "/%{cfg.buildcfg}/shaders"
+            local create_output_folder_pbc = "mkdir -p " .. output_path
+            local copy_shaders_pbc = "cp -r " .. shaders_path .. "/* " .. output_path
+            postbuildcommands({ create_output_folder_pbc, copy_shaders_pbc })
 
-        configuration { "windows" }
+        configuration { "vs2015" }
             links "OpenGL32.lib" -- link OpenGL on windows
             local sdl2_path = os.getenv("SDL2_PATH")
             local sdl2_include = (sdl2_path or "") .. "/include"
             local sdl2_lib = (sdl2_path or "") .. "/lib/x86"
-            local glm_path = os.getenv("GLM_PATH")			
+            local glm_path = os.getenv("GLM_PATH")
             debugdir(use_windows_slashes(target))
             includedirs { sdl2_include, glm_path }
             libdirs { sdl2_lib }
