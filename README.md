@@ -6,8 +6,8 @@ This project uses premake to generate build files for linux or windows that link
 
 #### Linux
 
-    git clone --recursive https://github.com/matthewjberger/opengl.git
-    cd opengl
+    git clone --recursive https://github.com/matthewjberger/opengl_examples.git
+    cd opengl_examples
     premake5 gmake
     cd build
     make
